@@ -112,6 +112,22 @@ gitlab:
   {{- end }}
 
 {{- end }}
+{{- with .Values.config.redis }}
+{{/*
+Sanitized version of the redis config. "url" is passed as environment variable
+*/}}
+redis:
+  {{- with .project_ttl }}
+  project_ttl: {{ . }}
+  {{- end }}
+  {{- with .ref_ttl }}
+  ref_ttl: {{ . }}
+  {{- end }}
+  {{- with .metric_ttl }}
+  metric_ttl: {{ . }}
+  {{- end }}
+
+{{- end }}
 {{- with .Values.config.pull }}
 pull: {{ toYaml . | nindent 2 }}
 
